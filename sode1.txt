@@ -1,0 +1,88 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define nl "\n"
+#define ll long long int
+#define INF 1e9
+
+void solve()
+{
+    int n;
+    cin >> n;
+    queue<int> q;
+    for (int i = 1; i <= (1 << n); i++)
+        q.push(i);
+    while (q.size() > 2)
+    {
+        queue<int> q2;
+        while (!q.empty())
+        {
+            vector<int> v(4);
+            for (int i = 0; i < 4; i++)
+                v[i] = q.front(), q.pop();
+            cout << "? " << v[0] << " " << v[2] << endl;
+            int x;
+            cin >> x;
+            if (x == 0)
+            {
+                cout << "? " << v[1] << " " << v[3] << endl;
+                cin >> x;
+                if (x == 1)
+                    q2.push(v[1]);
+                else
+                    q2.push(v[3]);
+            }
+            else if (x == 1)
+            {
+                cout << "? " << v[0] << " " << v[3] << endl;
+                cin >> x;
+                if (x == 1)
+                    q2.push(v[0]);
+                else
+                    q2.push(v[3]);
+            }
+            else
+            {
+                cout << "? " << v[1] << " " << v[2] << endl;
+                cin >> x;
+                if (x == 1)
+                    q2.push(v[1]);
+                else
+                    q2.push(v[2]);
+            }
+        }
+
+        q = q2;
+    }
+
+    if (q.size() == 1)
+    {
+        cout << "! " << q.front() << endl;
+        return;
+    }
+
+    int a = q.front();
+    q.pop();
+    int b = q.front();
+    q.pop();
+    cout << "? " << a << " " << b << endl;
+    int x;
+    cin >> x;
+    if (x == 1)
+        cout << "! " << a << endl;
+    else
+        cout << "! " << b << endl;
+}
+
+int main()
+{
+    // ios_base::sync_with_stdio(false);
+    // cin.tie(NULL);
+    int T = 1;
+    cin >> T;
+    for (int t = 1; t <= T; t++)
+    {
+        // cout << "Case #" << t << ": ";
+        solve();
+    }
+}
